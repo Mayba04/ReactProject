@@ -13,6 +13,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useFormik } from 'formik';
+import { login } from '../services/api-user-service';
 
 interface FormValues {
     password: string;
@@ -72,7 +73,9 @@ export default function SignIn() {
         validate,
         onSubmit: values => {
           alert(JSON.stringify(values, null, 2));
+
         },
+ 
       });
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -82,6 +85,8 @@ export default function SignIn() {
       email: data.get("email"),
       password: data.get("password"),
     });
+    login(data).then(Response =>{console.log(Response)})
+    
   };
 
   return (
@@ -120,7 +125,7 @@ export default function SignIn() {
               onChange={formik.handleChange}
               value={formik.values.email}
             />
-             {formik.errors.email ? <div>{formik.errors.email}</div> : null}
+             {formik.errors.email ? <div style={{color: "red"}}>{formik.errors.email}</div> : null}
             <TextField
               margin="normal"
               required
@@ -133,17 +138,19 @@ export default function SignIn() {
               onChange={formik.handleChange}
               value={formik.values.password}
             />
-             {formik.errors.password ? <div>{formik.errors.password}</div> : null}
+             { formik.errors.password ? <div style={{color: "red"}}>{formik.errors.password}</div> : null}
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
             <Button
+                disabled={!(formik.values.email && formik.values.password  )}
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
+  
               Sign In
             </Button>
             <Grid container>
