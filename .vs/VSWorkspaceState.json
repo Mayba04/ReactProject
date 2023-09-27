@@ -1,6 +1,13 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\src",
+    "\\src\\pages",
+    "\\src\\pages\\auth",
+    "\\src\\pages\\auth\\services",
+    "\\src\\pages\\auth\\sigin",
+    "\\src\\pages\\auth\\signup"
   ],
+  "SelectedNode": "\\src\\pages\\auth\\services",
   "PreviewInSolutionExplorer": false
 }
