@@ -35,7 +35,8 @@ interface LoginUserErrorAction{
 }
 
 interface ServerErrorAction{
-    type: UserActionTypes.SERVER_ERROR
+    type: UserActionTypes.SERVER_ERROR,
+    payload: any
 }
 
 export type UserActions =  StartRequestAction | FinishRequestAction | LoginUserSuccessAction | LoginUserErrorAction | ServerErrorAction

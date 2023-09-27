@@ -14,6 +14,7 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useFormik } from 'formik';
 import { login } from '../services/api-user-service';
+import { useActions } from "../../../hooks/useActions";
 
 interface FormValues {
     password: string;
@@ -64,7 +65,7 @@ function Copyright(props: any) {
 const defaultTheme = createTheme();
 
 export default function SignIn() {
-
+  const { LoginUser } = useActions();
     const formik = useFormik({
         initialValues: {
           email: '',
@@ -86,7 +87,7 @@ export default function SignIn() {
       password: data.get("password"),
     });
     login(data).then(Response =>{console.log(Response)})
-    
+    LoginUser(data);
   };
 
   return (
