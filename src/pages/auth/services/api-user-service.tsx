@@ -33,3 +33,26 @@ export async function login(user: any){
     } )
     return data
 }
+
+export function setAccessToken(token: string){
+    window.localStorage.setItem("accessToken", token)
+}
+
+export function setRefreshToken(refreshToken: string){
+    window.localStorage.setItem("refreshToken", refreshToken)
+}
+
+export function getAccessToken(): null | string{
+    const token = window.localStorage.getItem("accessToken")
+    return token;
+}
+
+export function getRehreshToken(): null | string{
+    const token = window.localStorage.getItem("refreshToken")
+    return token;
+}
+
+export function removeTokens(){
+    window.localStorage.removeItem("accessToken")
+    window.localStorage.removeItem("refreshToken")
+}

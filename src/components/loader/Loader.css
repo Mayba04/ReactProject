@@ -1,0 +1,38 @@
+.loader-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Прозорий фон */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .loader {
+    position: relative; /* Додайте це правило */
+    width: 50px;
+    height: 50px;
+  }
+  
+  .loader-circle {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #007bff;
+    animation: loader-spin 1s infinite ease-in-out;
+    top: 700%; /* Змініть top, щоб центрувати елементи по вертикалі */
+    left: 1700%; /* Змініть left, щоб центрувати елементи по горизонталі */
+    transform: translate(-50%, -50%); /* Це для точного центрування */
+  }
+  
+  @keyframes loader-spin {
+    0%, 100% {
+      transform: translate(-50%, -50%) scale(0);
+    }
+    50% {
+      transform: translate(-50%, -50%) scale(1);
+    }
+  }

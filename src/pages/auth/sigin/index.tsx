@@ -5,7 +5,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import { Link } from "react-router-dom";
+import { Link, Navigate  } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -15,6 +15,8 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useFormik } from 'formik';
 import { login } from '../services/api-user-service';
 import { useActions } from "../../../hooks/useActions";
+import { useTypedSelector } from "../../../hooks/useTypedSelector";
+import Loader from "../../../components/loader/loader";
 
 interface FormValues {
     password: string;
@@ -66,19 +68,30 @@ const defaultTheme = createTheme();
 
 export default function SignIn() {
   const { LoginUser } = useActions();
-    const formik = useFormik({
-        initialValues: {
-          email: '',
-          password: '',
-        },
-        validate,
-        onSubmit: values => {
-          alert(JSON.stringify(values, null, 2));
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+      password: '',
+    },
+    validate,
+    onSubmit: values => {
+      alert(JSON.stringify(values, null, 2));
 
-        },
- 
-      });
+    },
 
+  });
+
+
+  const { isAuth, loading } = useTypedSelector((store) => store.UserReducer);
+
+  if (isAuth) {
+    return <Navigate to="dashboard" />;
+  }
+
+  if (loading) {
+    return <Loader />;
+  }
+    
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -90,6 +103,7 @@ export default function SignIn() {
     LoginUser(data);
   };
 
+  
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
