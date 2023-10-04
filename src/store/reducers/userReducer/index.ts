@@ -7,7 +7,7 @@ const initialState: UserState = {
     error: null,
     isAuth: false,
     selectedUser: null,
-    allUsers: []
+    allUsers: [],
 }
 
 const UserReducer = (state = initialState, action: UserActions) : UserState => {
@@ -22,9 +22,19 @@ const UserReducer = (state = initialState, action: UserActions) : UserState => {
             return {...state, loading: false, message: action.payload.message}
         case UserActionTypes.SERVER_ERROR:
             return {...state, loading: false}  
+        case UserActionTypes.LOGOUT_USER:
+            return {
+            user: {},
+            message: null,
+            loading: false,
+            error: null,
+            isAuth: false,
+            selectedUser: null,
+            allUsers: [],
+            };
         default: 
-        return state
+            return state
     }
 }
 
-export default UserReducer
+export default UserReducer;

@@ -3,7 +3,7 @@ import { Dispatch } from "redux"
 import { toast } from "react-toastify"
 import jwtDecode from "jwt-decode"
 // Import services
-import { login, setAccessToken, setRefreshToken } from "../../../pages/auth/services/api-user-service";
+import { login, logout, removeTokens, setAccessToken, setRefreshToken } from "../../../pages/auth/services/api-user-service";
 
 export const LoginUser = (user : any) => {
     return async(dispatch: Dispatch<UserActions>) => {
@@ -29,6 +29,20 @@ export const LoginUser = (user : any) => {
          }
     }
 }
+
+export const LogOut = (id: string) => {
+   return async (dispatch: Dispatch<UserActions>) => {
+     const data = await logout(id);
+     console.log("LogOut " + data)
+     const { response } = data;
+     if (response.success) {
+       removeTokens();
+       dispatch({
+         type: UserActionTypes.LOGOUT_USER,
+       });
+     }
+   };
+ };
 
 export const AuthUser = (token: string, message: string, dispatch: Dispatch<UserActions>) => {
    const decodedToken = jwtDecode(token) as any;

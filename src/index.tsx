@@ -8,7 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { Provider } from "react-redux";
 import { store } from "./store";
 import { AuthUser } from "./store/action-creators/userActions";
-import { getAccessToken, getRehreshToken } from "./pages/auth/services/api-user-service";
+import { getAccessToken } from "./pages/auth/services/api-user-service";
 
 const token = getAccessToken();
 if (token) {
