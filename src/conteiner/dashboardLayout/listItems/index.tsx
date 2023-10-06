@@ -26,7 +26,7 @@ export const adminMenu  = (
         <PeopleIcon />
       </ListItemIcon>
       <Link to="users">
-        <ListItemText primary="Customers" />
+        <ListItemText primary="Users" />
       </Link>
     </ListItemButton>
   </React.Fragment>

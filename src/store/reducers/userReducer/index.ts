@@ -31,7 +31,10 @@ const UserReducer = (state = initialState, action: UserActions) : UserState => {
             isAuth: false,
             selectedUser: null,
             allUsers: [],
-            };
+            }
+        case UserActionTypes.USERS_LIST:
+            return{...state, loading: false, message: action.payload.message, allUsers: action.payload.allUser,
+            }
         default: 
             return state
     }
