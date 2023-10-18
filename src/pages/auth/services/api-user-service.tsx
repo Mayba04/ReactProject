@@ -76,8 +76,13 @@ const requests = {
 
 const User = {
     login: (user: any) => requests.post(`/Login`, user),
-    logout: (userId: string) => requests.get(`/logout?userId=` + userId),
-    getAll: ()=> requests.get('/GetAll')
+    logout: (userId: string) => requests.get(`/LogOut?userId=` + userId),
+    getAll: ()=> requests.get('/GetAll'),
+    getById: (userId: string)=> requests.get('/getUserById?userId=' + userId),
+    adduser: (user: any) => requests.post(`/CreatUser`, user),
+    deleteuser: (userId: string) => requests.post(`/DeleteUser`, userId),
+    getAllRoles: ()=> requests.get('GetAllRoles'),
+    editUser: (user: any) => requests.post(`/EditUser`, user),
 }
 
 export async function login(user: any){
@@ -96,6 +101,7 @@ export async function login(user: any){
 }
 
 export async function logout(userId: string){
+  removeTokens();
     const data = await User.logout(userId)
     .then((response) => {
         return {
@@ -119,6 +125,89 @@ export async function GetAll (){
       return error.response
   } )
   return data
+}
+
+export async function GetById (userId: string){
+  const data = await User.getById(userId)
+  .then((response) => {
+      return {
+          response
+      }
+  })
+  .catch((error) => {
+      return error.response
+  } )
+  return data
+}
+
+export async function getAllRoles (){
+  const data = await User.getAllRoles()
+  .then((response) => {
+      return {
+          response
+      }
+  })
+  .catch((error) => {
+      return error.response
+  } )
+  return data
+}
+
+
+export async function deleteuser(userId: string){
+    const data = await User.deleteuser(userId)
+    .then((response) => {
+        return {
+            response
+        }
+    })
+    .catch((error) => {
+        return error.response
+    } )
+    return data
+}
+
+export async function adduser(user: any) {
+  const data = await User.adduser(user)
+  .then((response) => {
+      console.log("Response from API:", response.data);
+      return {
+          response
+      }
+  })
+  .catch((error) => {
+      console.error("Error during add user:", error);
+      return error.response
+  } )
+  return data
+}
+
+
+export async function editUser(user: any){
+  console.log(user);
+  const data = await User.editUser(user)
+  .then((response) => {
+      console.log("Response from API:", response.data);
+      return {
+          response
+      }
+  })
+  .catch((error) => {
+      console.error("Error during login:", error);
+      return error.response
+  } )
+  return data
+}
+
+export function setSelectedUser(user: any) {
+  user = JSON.stringify(user);
+  window.localStorage.setItem("selectedUser", user);
+}
+
+export function getSelectedUser() {
+  let selectedUser: any = window.localStorage.getItem("selectedUser");
+  selectedUser = JSON.parse(selectedUser);
+  return selectedUser;
 }
 
 function refreshAccessToken() {
@@ -150,4 +239,6 @@ export function getRefreshToken(): null | string{
 export function removeTokens(){
     window.localStorage.removeItem("accessToken")
     window.localStorage.removeItem("refreshToken")
+    window.localStorage.removeItem("selectedUser")
 }
+

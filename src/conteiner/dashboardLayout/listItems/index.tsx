@@ -29,6 +29,14 @@ export const adminMenu  = (
         <ListItemText primary="Users" />
       </Link>
     </ListItemButton>
+    <ListItemButton>
+      <ListItemIcon>
+        <PeopleIcon />
+      </ListItemIcon>
+      <Link to="addUser">
+        <ListItemText primary="Add users" />
+      </Link>
+    </ListItemButton>
   </React.Fragment>
 );
 

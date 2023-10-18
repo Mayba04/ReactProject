@@ -5,7 +5,8 @@ export interface UserState{
     error: null | string,
     isAuth: boolean,
     selectedUser: any,
-    allUsers: []
+    allUsers: [],
+    allRoles: [],
 }
 
 export enum UserActionTypes {
@@ -16,6 +17,12 @@ export enum UserActionTypes {
     SERVER_ERROR = "SERVER_ERROR",
     LOGOUT_USER = "LOGOUT_USER",
     USERS_LIST = "USERS_LIST",
+    ADD_USER = "ADD_USER",
+    DELETE_USER = "DELETE_USER",
+    ROLES_LIST = "ROLES_LIST",
+    EDIT_USER = "EDIT_USER",
+    GETBYID_USER = "GETBYID_USER",
+    SELECTED_USER = "SELECTED_USER"
 }
 
 interface StartRequestAction {
@@ -50,4 +57,35 @@ interface UserListAction{
     payload: any
 }
 
-export type UserActions = UserListAction | LogoutUserAction | StartRequestAction | FinishRequestAction | LoginUserSuccessAction | LoginUserErrorAction | ServerErrorAction
+interface RolesListAction{
+    type: UserActionTypes.ROLES_LIST,
+    payload: any
+}
+
+interface AddUserAction{
+    type: UserActionTypes.ADD_USER,
+    payload: any
+}
+
+interface DeleteUserAction{
+    type: UserActionTypes.DELETE_USER,
+    payload: any
+}
+
+interface EditUserAction {
+    type: UserActionTypes.EDIT_USER;
+    payload: any
+  }
+
+  interface GetUserByIdUserAction {
+    type: UserActionTypes.GETBYID_USER;
+    payload: any
+  }
+
+interface SelectdUser {
+    type: UserActionTypes.SELECTED_USER;
+    payload: any
+}
+  
+
+export type UserActions = SelectdUser | GetUserByIdUserAction | EditUserAction| RolesListAction | DeleteUserAction | AddUserAction | UserListAction | LogoutUserAction | StartRequestAction | FinishRequestAction | LoginUserSuccessAction | LoginUserErrorAction | ServerErrorAction

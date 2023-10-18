@@ -7,8 +7,8 @@ import App from './App';
 import "react-toastify/dist/ReactToastify.css";
 import { Provider } from "react-redux";
 import { store } from "./store";
-import { AuthUser } from "./store/action-creators/userActions";
-import { getAccessToken } from "./pages/auth/services/api-user-service";
+import { AuthUser, SelectUser  } from "./store/action-creators/userActions";
+import { getAccessToken, getSelectedUser  } from "./pages/auth/services/api-user-service";
 
 const token = getAccessToken();
 if (token) {
@@ -17,6 +17,12 @@ if (token) {
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
+const selectedUser = getSelectedUser();
+if (selectedUser) {
+    SelectUser(selectedUser, store.dispatch);
+}
+
 root.render(
   <Provider store={store}>
     <Router>
