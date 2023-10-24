@@ -239,6 +239,6 @@ export function getRefreshToken(): null | string{
 export function removeTokens(){
     window.localStorage.removeItem("accessToken")
     window.localStorage.removeItem("refreshToken")
-    window.localStorage.removeItem("selectedUser")
+    
 }
 

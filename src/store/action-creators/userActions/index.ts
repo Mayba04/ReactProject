@@ -53,8 +53,7 @@ export const LogOut = (id: string) => {
   return async (dispatch: Dispatch<UserActions>) => {
     const data = await logout(id);
     console.log("LogOut " + data);
-    const { response } = data;
-    if (response.success) {
+    if (data && data.response && data.response.success) {
       removeTokens();
       dispatch({
         type: UserActionTypes.LOGOUT_USER,

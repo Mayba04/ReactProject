@@ -19,6 +19,8 @@ import MenuItem from "@mui/material/MenuItem";
 import { useActions } from "../../hooks/useActions";
 import { Link, Outlet } from "react-router-dom";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
+import { Navigate } from "react-router-dom";
+
 
 function Copyright(props: any) {
   return (
@@ -95,6 +97,7 @@ const mdTheme = createTheme();
 export default function DashboardLayout() {
   const { user } = useTypedSelector((store) => store.UserReducer);
   const [anchorEl, setAnchorEl]: any = useState(null);
+  const [ isRedirect, setIsRedirect ] = useState(false);
   const openProfileMenu = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -107,12 +110,17 @@ export default function DashboardLayout() {
 
   const Logout = () => {
     LogOut(user.Id);
+    setIsRedirect(true);
   };
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
   };
 
+  if(isRedirect)
+  {
+    return <Navigate to="/dashboard"/>
+  }else
   return (
     <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: "flex" }}>

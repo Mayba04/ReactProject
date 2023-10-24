@@ -75,25 +75,28 @@ const AllUsers = () => {
                 {users.emailConfirmed ? "True" : "False"}
               </TableCell>
               <TableCell align="left">{users.role}</TableCell>
-              {user.role === "Administrator" && user.id !== users.id && (
-                <TableCell align="left">
-                  <Button
-                    variant="contained"
-                    color="secondary"
-                    onClick={() => handleDeleteUser(users.id)}
-                  >
-                    Delete
-                  </Button>
-                  <Link to="/dashboard/editUsers">
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={() => handleEditUser(users)}
-                  >
-                    Edit
-                  </Button></Link>
-                </TableCell>
-              )} 
+              <TableCell>
+                {user.role === "Administrator" && user.Id !== users.id && (
+                  <>
+                    <Button
+                      variant="contained"
+                      color="secondary"
+                      onClick={() => handleDeleteUser(users.id)}
+                    >
+                      Delete
+                    </Button>
+                    <Link to="/dashboard/editUsers">
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={() => handleEditUser(users)}
+                      >
+                        Edit
+                      </Button>
+                    </Link>
+                  </>
+                )}
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
