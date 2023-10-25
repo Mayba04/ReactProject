@@ -23,6 +23,7 @@ interface FormValues {
   email: string;
   password: string;
   confirmPassword: string;
+  phoneNumber: string;
 }
 
 const validate = (values: FormValues) => {
@@ -38,6 +39,12 @@ const validate = (values: FormValues) => {
 
   if (!values.role) {
     errors.role = "Required";
+  }
+
+  if (!values.phoneNumber) {
+    errors.phoneNumber = "Required";
+  } else if (values.phoneNumber.length < 12) {
+    errors.phoneNumber = "The format is +xx(xxx)xxx-xx-xx";
   }
 
   if (!values.email) {
@@ -81,6 +88,7 @@ const AddUser = () => {
       email: "",
       password: "",
       confirmPassword: "",
+      phoneNumber: ""
     },
     validate,
     onSubmit: (values) => {
@@ -90,7 +98,8 @@ const AddUser = () => {
         role: values.role,
         email: values.email,
         password: values.password,
-        confirmPassword: values.confirmPassword
+        confirmPassword: values.confirmPassword,
+        phoneNumber: values.phoneNumber
       };
 
       adduser(userData).then((response) => {
@@ -188,6 +197,18 @@ const AddUser = () => {
                       </option>
                     ))}
                 </TextField>
+                <TextField
+                    margin="normal"
+                    id="phoneNumber"
+                    label="Phone Number"
+                    name="phoneNumber"
+                    value={formik.values.phoneNumber}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={formik.touched.phoneNumber && Boolean(formik.errors.phoneNumber)}
+                    helperText={formik.touched.phoneNumber && formik.errors.phoneNumber}
+                    sx={{ mr: 1, flex: 1 }}
+                />
                 <TextField
                     margin="normal"
                     id="password"
